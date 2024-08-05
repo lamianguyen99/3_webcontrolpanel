@@ -259,9 +259,39 @@
 
         + Website management: Create a management website through the panel, and complete various configurations easily and symply
        
-          1. **Website overview**
+          1. **Trouble shooting**
 
-          2. **Create website**
+          2. **Install / Update**
+
+          3. **Website**
+
+          4. **Backups**
+
+          5. **WordPress Manager**
+
+          6. **Database**
+
+          7. **Security**
+
+          8. **Managing SSL**
+
+          9. **DNS**
+
+          10. **Email**
+
+          11. **FTP**
+
+          12. **Contentrization**
+
+          13. **CyberPanel Features**
+
+          14. **Dashboard**
+
+          15. **User**
+
+          16. **Support**
+
+          17. **Docker Apps**
 
 
 
@@ -284,19 +314,31 @@
       
   8. **Vesta Control Panel**
 
-      WebPanel miễn phí, giao diện đơn giản, phù hợp cho các máy chủ nhỏ.
+      - **Đặc điểm chính:**
 
-      - **Ưu điểm:**
+        + Website management: Create a management website through the panel, and complete various configurations easily and symply
+       
+          1. **User**
+          2. **Web**
+          3. **DNS**
+          4. **E-Mail**
+          5. **Datab**
 
+      - **Ưu và nhược điểm:**
+  
+        ***Ưu điểm:***
+        
         + Hoàn toàn miễn phí, giao diện đơn giản và dễ sử dụng.
        
         + Phù hợp với các máy chủ web quy mô nhỏ, không đòi hỏi nhiều tính năng nâng cao.
 
-      - **Nhược điểm:**
-    
+        ***Nhược điểm:***
+
         + Tính năng hạn chế, không phù hợp cho các yêu cầu quản lý phức tạp.
        
         + Chỉ hỗ trợ Linux, không có phiên bản Windows.
+          
+
 
 ### II. Chức năng chính:
 
