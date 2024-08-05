@@ -322,7 +322,18 @@
           2. **Web**
           3. **DNS**
           4. **E-Mail**
-          5. **Datab**
+          5. **Database**
+          6. **CRON**
+          7. **Backups**
+          8. **Packages**
+          9. **IP**
+          10. **Graphs**
+          11. **Statistics**
+          12. **Log**
+          13. **Updates**
+          14. **Firewall**
+          15. **File Manager**
+          16. **Server**
 
       - **Ưu và nhược điểm:**
   
