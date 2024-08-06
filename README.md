@@ -379,3 +379,40 @@
      
 
   
+###########3
+##############
+WHM(Website Hosting Manager)
+##############
+#############
+
+Đổi Primary domain 
+
+    Cho phép tên miền chính hosting của bạn thay đổi sang một tên miền khác
+
+Migrate va transfer
+    Migrate cho phép di chuyển một tài khoản hosting từ máy chủ hosting này sang một máy chủ hosting khác
+    Transfer: cho phép di chuyển giao một tài khoản hosting này sang  một tài khoản hosting khác
+
+Terminal
+    Reload hosting
+    Check domlogs
+    Check process đang chạy của một user
+
+Kiểm tra hosting được kết nối với mail relay server bằng port nào?
+    Bảo mật email 
+    Cấu hình Email
+    Giải quyết sự cố trên Email
+    Tuân thủ và quy định
+    Theo dõi và phân tích hoạt động của Email
+
+
+Tìm add-on domain đang thuộc User nào?
+    Quản lý tài khoản người dùng:
+    Bảo mật và tuân thủ:
+    Phân tích sử dụng tài nguyên:
+    Hỗ trợ người dùng:
+    Thanh toán và lập hóa đơn:
+
+PHP X-ray:
+
+    - Check function nào tốn nhiều thời gian chạy nhất
