@@ -378,7 +378,24 @@
   12. **More Plugins**
      
 
-  
+
+
+
+
+##cPANEL
+
+Công cụ quản trị web hosting này có giao diện thân thiện với người dùng và hoạt động trên hệ thống phân cấp ba lớp như sau:
+
+- Hosting company (Nhà cung cấp dịch vụ hosting).
+
+- Reseller.
+
+- End User (Người dùng cuối).
+
+`Hosting company` và `Reseller` sử dụng giao diện tương tự có tên là web host manager(WHM) – Trình quản lý máy chủ web (WHM) trong đó hosting company có quyền quản trị cao nhất và có thể hạn chế quyền truy cập vào một số tính năng nhất định trong Reseller WHM. End user có quyền truy cập trực tiếp vào cPanel interface nơi họ có thể thực hiện một loạt các tác vụ cho trang web của mình.
+
+Ngoài ra, `cPanel` cũng có khả năng cho phép các nhà cung cấp bên thứ 3 tích hợp dịch vụ của họ vào để khách hàng có thể sử dụng dịch vụ ngay trong giao diện cPanel. Công cụ quản trị web hosting này có thể sử dụng trên máy chủ vật lý hoặc máy chủ ảo (VPS) sử dụng hệ điều hành CentOS, RedHat Enterprise Linux, CloudLinux hoặc FreeBSD. cPanel hỗ trợ Apache , MySQL và PHP cũng như các giao thức email phổ biến bao gồm POP3, IMAP và SMTP. End user sẽ sử dụng hosting cPanel bằng cách truy cập qua cổng 2083.
+
 ###########3
 ##############
 WHM(Website Hosting Manager)
@@ -420,3 +437,167 @@ Tìm add-on domain đang thuộc User nào?
 PHP X-ray:
 
     Check function nào tốn nhiều thời gian chạy nhất
+
+
+cPanel is a Linux-based web hosting control panel, designed to automate the processes involved with running a web server.
+
+A few of the core web hosting processes that are automated via the cPanel software are:
+
+    - Server Security
+    - Domain & DNS
+    - Email Handling
+    - File Transfer & Management
+    - Database Handling
+    - Logging
+
+cPanel & WHM allows hosting providers and users the ability to automate server management tasks while offering your customers the tools they need to manage their sites. One of our older, but still very relevant videos does a great job of explaining how cPanel & WHM benefit the web hosting industry.
+
+cPanel is one of the most popular Linux-based control panels for web hosting. It lets you conveniently manage all services in a single place. 
+
+Currently, cPanel is the industry standard, and most web developers are well-acquainted with it.
+
+Intuitive and easy to use, cPanel empowers you to manage a web hosting account with maximum efficiency, whether that’s creating new FTP users and email addresses or monitoring resources, creating subdomains and installing the software.
+
+
+What it means
+
+So now we know what cPanel is - but what exactly does it mean to be a web hosting control panel? As the video in the last unit mentions, one of cPanel’s goals has always been to make web hosting accessible to everyone. 
+
+This works by making administration tasks simple and by allowing for self-sufficiency. Where in the past, users would constantly need to request assistance from the server administrator to make any adjustments to their accounts or environment, cPanel allows users to do it themselves.
+
+This means that administrators can focus on making sure that the server is stable and working smoothly, while the users have the freedom and flexibility to establish a web hosting environment that’s best for them, additionally allowing for the administrator (and/or resellers) to define constraints and restrictions as needed.
+
+A simple click of the button now performs the tasks that might have originally taken hours.
+
+Here’s an example:
+
+To add a new website, one of the things you would need to do on a server is to create something called a VirtualHost entry, by manually adding it into a configuration file on the server. 
+
+This involved understanding the syntax of that configuration file, and constructing values to represent each option you needed to define. This needed to be done independently for SSL and non-SSL access.
+
+With cPanel, this all takes place automatically.
+
+When a user creates a domain, the configurations are updated automatically, including backups (just in case). 
+
+The server administrator doesn’t even need to be involved for this to happen. The end-user, or web hosting customer, then fills out a simple form within their own personal cPanel interface, after which point they can simply click a button.
+
+
+\Why do we need one?
+Why do we need a control panel?
+
+Want an honest answer? We don't need them.
+
+We do, however, want them.
+
+Like almost all innovation in technology, humans want to make things easier, more efficient, and just plain faster. We created the remote control so we didn’t have to get off of the couch. 
+
+We all bought microwaves so we wouldn’t have to wait so long for food to cook. We created cars because horses and walking were just too slow.
+
+it goes a little deeper than that with control panels, however, and even with computing in general.
+
+cPanel (and control panels in general) automates processes so that web hosting becomes simpler. 
+
+This, in turn, makes web hosting realistic for a wider range of people to have access to, regardless of income or skill level.
+
+This applies not only to web hosting customers, but also web hosts themselves, because they are now able to administer their servers, and as a result their company, using a simple, unified, and automated graphical interface.
+
+What can I do with cPanel?
+
+Now, hopefully, you have a better picture of the role that control panels and cPanel have when it comes to the internet. You might even feel ready to dive into your own cPanel interface, but if you want to be equipped to make the most of it, you’ll need to know what you can actually do.
+
+There’s a LOT you can do with cPanel, even with minimal feature access. In fact, there’s so much you can do that we can’t possibly cover it all in one simple introduction unit. Later on, you will learn more about those features in the Administration Tier 2 cPanel Essentials certification course. The course is comprised of videos that provide coverage of many available features in the cPanel interface.
+
+In addition to the training videos in Tier 2, cPanel has many video tutorials, documentation, and interface overviews. When you're going through our training courses, feel free to supplement by exploring the content delivered right from the source. It’s easier to follow than you might expect.
+
+
+#####
+What is a cPanel account?
+
+It may seem like a silly question. If you use cPanel, you have an account. Simple as that, right?
+
+Well, it actually gets a little more interesting. You may or may not be aware, but the account you log into cPanel with might actually be one of many that exist on a single server.
+
+You can think of it as an apartment building. Each cPanel interface would exist as one apartment in the building. You can do anything you want inside the apartment, within the rules of the landlord, but you can’t change the building itself.
+
+The landlord(s), however, makes sure that everyone is taken care of. Any building maintenance that needs to take place goes through the landlord.
+
+In this analogy, the server admin is the landlord. And... as you’d expect, they have their own interface to manage the server, and to perform the necessary maintenance.
+
+The administration interface is called WebHost Manager, or WHM. Administrators log into WHM using the root user for the system, which is the user that can do anything it wants on the server, with no restrictions.
+
+    - Your cPanel account has the cPanel interface to help you access a designated portition of the server.
+
+    - The server itself has WHM interface to help administrators access everything on server, including any accounts.
+
+Some server admins may provide cPanel accounts with access to more than other servers’ admins; this is solely determined and implemented at the administrators' own discretion.
+
+Who is my host?
+
+So who really hosts my website?
+
+There are countless amounts of cPanel users out there who may at times obtain access to the account or domain via the transfer of responsibilities, for one reason or another. 
+
+Often, this process happens with very little information provided.
+
+Then, at some point, the time comes that a change in their site necessitates assistance from the server administrator. 
+
+The question arises: 
+Who IS the server administrator?
+
+In order to contact the admin, they need to first find out who their hosting provider is. This is not always as simple as it might seem.
+
+One common mistake is to think that cPanel itself is the hosting provider. What cPanel actually provides is simply a piece of software that generates the interface that you see when you log into your account. 
+
+Hosting providers purchase this software for use on their own servers. They are fully responsible for managing and administering their own servers.
+
+cPanel has no ownership of the server or the accounts within it, even if it uses our software. As a result, all necessary changes to the server must be relayed through the hosting providers themselves.
+
+
+One way that users can confirm this information is via the WHOIS records. Alternatively, the DNS servers’ domains can occasionally reveal this information.
+
+Often, however, the results of these can still not definitively point to any particular hosting provider. Luckily, there are other ways to identify this information.
+
+How to Identify your Hosting Provider
+In our official Knowledgebase, we have a detailed article that provides steps you can take to determine who your domain’s actual hosting provider is, and what to do if you still come up empty.
+
+You can find this article by clicking the button to the right.
+
+
+
+##########CHECKPOINT#####
+
+LINK: https://docs.cpanel.net/knowledge-base/cpanel-product/how-to-identify-your-hosting-provider/
+
+How to Identify Your Hosting Provider
+
+Many cPanel users contact WebPros International, LLC for technical support or other inquiries. But, in most cases, you should contact your hosting provider instead. This document will help you to identify your hosting provider.
+
+You may want to contact your hosting provider for the following types of issues:
+
+    - Forgotten usernames or passwords.
+    - Purchases of additional storage space, bandwidth, or other resources.
+    - Technical problems.
+    - Payment or billing inquiries.
+
+I thought that cPanel was my hosting provider?
+
+Your hosting provider is the company that you pay to host your website. WebPros International, LLC is a software company that creates web hosting automation software. We then sell (license) this software to individual hosting companies. These companies then sell hosting space to individual customers. This is why you might see our logo or other information when you log in to your website.
+
+
+Warning:
+
+WebPros International, LLC does not own and cannot access the server that stores your website’s information. So, unfortunately, we cannot help you with most requests.
+
+If you encounter any any flaws in our product, you must relay them to your hosting provider. We will then work directly with your hosting provider to resolve the issue.
+
+##
+Identify your hosting provider
+
+To identify your hosting provider, perform the following actions:
+
+    - Navigate to Whois Domain Lookup. This website allows you to search for a domain name’s hosting provider.
+    
+    Note:
+    
+    - While this article uses Whois Domain Lookup, other similar search sites also exist, such as Webbium’s webhostingdetector.com. WebPros International, LLC is not affiliated with either of these third-party sites.
+
