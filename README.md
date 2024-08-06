@@ -600,4 +600,78 @@ To identify your hosting provider, perform the following actions:
     Note:
     
     - While this article uses Whois Domain Lookup, other similar search sites also exist, such as Webbium’s webhostingdetector.com. WebPros International, LLC is not affiliated with either of these third-party sites.
+#######END_CHECKPOINT#########
+
+What do you mean by resources?
+
+You may hear or read the term resources used in the context of servers, domains, hosting, or any other computing topic. This, in general, refers to the system components that allow a server to perform its tasks; usually memory/RAM availability, hard disk (both performance and disk space), CPU processing power, and bandwidth/throughput.
+
+We mentioned earlier that a single cPanel & WHM server may manage any number of accounts within it. In order to avoid having a situation where one of those accounts ends up using ALL of the server’s resources (leaving the other accounts with nothing), each account is instead limited to a finite amount of resources, as defined by the administrator.
+
+In the cPanel interface (which we’ll cover further within the cPanel Professional-tier of coursework) users are able to see exactly how much of and what kind of resources have been allocated to them. This can impact the potential speed, size, and complexity that sites within your account can reach.
+
+If you have any confusion about what resources are allocated to your account, or if you suspect a discrepancy between what was stated and what you’re seeing in the account, get in touch with your hosting provider to ensure that you are getting the most out of your site.
+
+Where can I find out more?
+
+Being Resourceful
+
+You may not have direct access to the system that your cPanel account lives on, but the more you understand about it, the better you’ll be at knowing how to effectively manage your cPanel account, and how to improve the site you host within it.
+
+Take a look at our cPanel Professional video-based certification course for more on this topic. Until then, however, go through our online video tutorials(https://www.youtube.com/user/cpaneltv/videos), documentation(https://docs.cpanel.net/), and interface overview(https://docs.cpanel.net/cpanel/the-cpanel-interface/the-cpanel-interface/) to get a head start. 
+
+
+#######
+cPanel Fundamentals DNS
+############
+
+DNS
+
+The World's  Address Book
+
+DNS, meaning Domain Name System, is at its core, simply a way to convert easily-remembered names (domains) into not-so-easy to remember numbers. This is how we reach the websites on the internet that we all know and love. To most people, the idea of a website and the idea of a domain are basically synonymous. However, when talking about DNS, they actually become very different things.
+
+A website is where you have the content. The words, the images, the videos, the files themselves. Whereas a domain is what you use to find the website.
+
+In the URL bar, you see the domain (cpanel.net) and in the main window, underneath, you can see the website.
+
+DNS is kind of like your phone contacts...
+
+You probably remember that your friend is Pete, but you might not remember what his phone number is off the top of your head.
+
+Luckily, we've got these handy smart phones that store all of our favorite contacts, right? You can just look up the name, push "Call", and it deals with the number part all on its own.
+
+That's really all that DNS is doing, on a surface level. Behind the scene, though, it takes quite a bit of software and infrastructure to make the internet do what it does.
+
+There are really two ways that DNS resolution can happen on a server: Either the record exists in a file on the server called the hosts file, or it gets handled by the DNS server software.
+
+The DNS server software is the basis behind what is referred to as a nameserver. These take in requests for domain names on the internet, or on any network, and respond by telling them where to go to find them.
+
+In the early days of the universe...
+
+No, we don't need to go that far back. In the early days of the internet, there was so little content and so few computers connected to it, that each computer maintained a list of names in that single file we mentioned earlier, called the hosts file.
+
+This file was used to list the domain name and the IP Address, identifying the location of that domain's files. Every time there was a change, each user would edit their respective hosts file with the new information.
+
+Eventually of course, this continued to grow until it became apparent that requiring everyone to manually modify a file with every new domain or IP change was just not a reasonable solution.
+
+And so, nameserver software was developed. Up until 1998, the location of the nameservers for each domain was solely handled by a company known as Network Solutions.
+
+Things have changed, though! And for the better. The reality was, as it usually is, a little more complicated. It all lead to where we are now, which brings us to our next discussion...
+
+So how does DNS work?
+
+Alright, we've talked about how it works on the surface level (name → IP, etc.), but the stuff that's more important for our purposes is going to need to go a little deeper. We don't have to get down to the nitty-gritty, but let's get some basics out of the way, starting with resolvers.
+
+A resolver, also called a resolving nameserver, is just a server that responds to DNS requests for domain names that it is not authoritative.
+
+A resolver, also called a resolving nameserver, is just a server that responds to DNS requests for domain names that it is not authoritative.
+
+So what qualifies as authoritative? When someone refers to a nameserver as being authoritative for a domain, they mean that the nameserver they're referring to is the best place to find the current info for that domain; the "official" source, so-to-speak.
+
+For most domains, a WHOIS search would allow you to determine what nameservers are authoritative for it. These only exist in the WHOIS records because whoever registered that domain provided those nameservers along with it.
+
+This means that the registrar (the place that the WHOIS record is retrieved from, and where the domain is registered) can, in effect, be one of the first points of potential failure if DNS resolution isn't working.
+
+If other types of nameservers handle DNS requests for domains that they are authoritative for, then one needs to be able to find anything they are not authoritative for, which is typically the rest of the internet. This is where a resolver comes in.
 
