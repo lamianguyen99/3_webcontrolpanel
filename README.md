@@ -675,3 +675,197 @@ This means that the registrar (the place that the WHOIS record is retrieved from
 
 If other types of nameservers handle DNS requests for domains that they are authoritative for, then one needs to be able to find anything they are not authoritative for, which is typically the rest of the internet. This is where a resolver comes in.
 
+So how does DNS work?
+
+A resolver deals with things in one of two ways..
+
+If it's a domain that the server has seen the request for previously, then it might already have its information saved (or cached), which lets it speed up the time it takes to respond by just looking in its own files. 
+
+Using what's called the TTL (Time-To-Live) number, which defines the amount of time in seconds that a cached zone should be relied on before looking for changes, it determines whether it's time to check the internet for a newer zone. 
+
+If the TTL has expired, the server then quickly determines whether a zone has been updated by contacting the nameservers provided within that zone, and specifically looking for a value called the serial number to see if that file is still up to date. 
+
+If the serial number on that domain's nameservers has changed, then it's time to download a new copy to the cache. Otherwise, the local, cached copy is still good, and the server is ready to respond right then and there (without much fuss).
+
+Bạn đã mô tả rất chi tiết và chính xác về cách hoạt động của hệ thống DNS và việc sử dụng bộ nhớ đệm để tăng tốc thời gian phản hồi. Bạn đã nêu ra những điểm chính sau:
+
+1. Khi máy chủ DNS (nameserver) đã thấy yêu cầu cho một tên miền trước đó, nó có thể lưu thông tin về tên miền đó vào bộ nhớ đệm, giúp tăng tốc thời gian phản hồi cho lần truy vấn tiếp theo.
+
+2. Thời gian tồn tại (TTL - Time To Live) của bản ghi trong bộ nhớ đệm xác định thời gian mà bản ghi đó có thể được sử dụng trước khi cần phải kiểm tra lại với các máy chủ tên miền authoritative.
+
+3. Khi TTL hết hạn, máy chủ DNS sẽ nhanh chóng kiểm tra xem tên miền đó có được cập nhật mới hay không bằng cách kiểm tra số sê-ri (serial number) của bản ghi.
+
+4. Nếu số sê-ri đã thay đổi, máy chủ sẽ tải bản sao mới về bộ nhớ đệm. Nếu không, bản sao cục bộ vẫn có thể được sử dụng mà không cần phải tải lại.
+
+Bạn đã giải thích rất rõ ràng và chi tiết về cách thức hoạt động của cơ chế bộ nhớ đệm trong hệ thống DNS, giúp tăng tốc độ phản hồi mà vẫn đảm bảo tính chính xác của thông tin. Đây là một mô tả rất đầy đủ về chủ đề này.
+
+Nếu máy chủ DNS kiểm tra trong bộ nhớ cache mà không tìm thấy thông tin về tên miền đó, thì sẽ xảy ra những việc sau:
+
+1. Máy chủ DNS sẽ tiến hành truy vấn các máy chủ DNS cha (root servers) để tìm thông tin về tên miền đó.
+
+2. Các máy chủ DNS cha sẽ cung cấp thông tin về máy chủ DNS authoritative (chịu trách nhiệm quản lý tên miền đó) cho máy chủ DNS đang truy vấn.
+
+3. Máy chủ DNS sẽ tiếp tục truy vấn lên máy chủ DNS authoritative để lấy thông tin về tên miền.
+
+4. Khi nhận được thông tin từ máy chủ DNS authoritative, máy chủ DNS sẽ lưu thông tin đó vào bộ nhớ cache của mình, với thời gian tồn tại (TTL) tương ứng.
+
+5. Lần truy vấn tiếp theo cho tên miền đó, máy chủ DNS sẽ trả về thông tin từ bộ nhớ cache, thay vì phải truy vấn lại từ đầu.
+
+Như vậy, nếu không tìm thấy thông tin về tên miền trong cache, máy chủ DNS sẽ thực hiện các bước truy vấn lên các máy chủ DNS cha và authoritative để lấy thông tin, đồng thời lưu thông tin đó vào cache cho lần sử dụng tiếp theo.
+
+TTL (Time to Live) của một bản ghi DNS bắt đầu và kết thúc như sau:
+
+1. Khi bản ghi được lấy từ máy chủ DNS authoritative:
+   - Thời gian TTL bắt đầu khi bản ghi được trả về từ máy chủ DNS authoritative.
+   - Giá trị TTL được xác định bởi máy chủ DNS authoritative và được truyền cùng với bản ghi.
+
+2. Khi bản ghi được lưu trong bộ nhớ cache của máy chủ DNS:
+   - Thời gian TTL được tính từ thời điểm bản ghi được lưu vào cache.
+   - Mỗi lần máy chủ DNS trả về bản ghi từ cache, thời gian TTL còn lại sẽ giảm dần.
+
+3. Khi thời gian TTL còn lại bằng 0:
+   - Bản ghi đó sẽ hết hạn và bị loại khỏi cache.
+   - Lần truy vấn tiếp theo sẽ khiến máy chủ DNS phải tìm lại thông tin từ đầu.
+
+Giá trị TTL được thiết lập bởi chủ sở hữu tên miền và thể hiện thời gian mà bản ghi DNS có thể được sử dụng mà không cần phải truy vấn lại. Điều này giúp giảm tải cho hệ thống DNS và cải thiện hiệu suất truy cập.
+
+Mỗi lần máy chủ DNS trả về bản ghi từ cache, thời gian TTL (Time to Live) còn lại của bản ghi sẽ giảm đi như sau:
+
+1. Khi bản ghi được lấy từ máy chủ DNS authoritative:
+   - Thời gian TTL ban đầu được xác định và truyền từ máy chủ authoritative.
+   - Ví dụ, bản ghi có TTL là 3600 giây (1 giờ).
+
+2. Khi bản ghi được lưu vào cache của máy chủ DNS:
+   - Thời gian TTL bắt đầu đếm ngược từ thời điểm bản ghi được lưu vào cache.
+
+3. Mỗi lần máy chủ DNS trả về bản ghi từ cache:
+   - Thời gian TTL còn lại sẽ giảm đi bằng khoảng thời gian từ lần truy vấn trước đến lần truy vấn hiện tại.
+   - Ví dụ, nếu bản ghi có TTL ban đầu là 3600 giây, và lần truy vấn trước đó cách lần truy vấn hiện tại 60 giây, thì TTL còn lại sẽ là 3540 giây.
+
+Khi thời gian TTL còn lại bằng 0, bản ghi sẽ hết hạn và bị loại khỏi cache. Lần truy vấn tiếp theo sẽ buộc máy chủ DNS phải tìm lại thông tin từ đầu.
+
+Việc giảm dần TTL giúp đảm bảo rằng thông tin trong cache luôn được cập nhật và chính xác. Điều này cải thiện hiệu suất và tính ổn định của hệ thống DNS.
+
+
+CHECK YOUR MEMORY
+
+What does TTL (Time-To-Live) define?
+
+The amount of time in seconds that a zone is cached
+
+If it's a domain that the server hasn't seen before, however, it performs what's called a recursive query. 
+
+These kinds of queries are a little taxing to perform constantly, which is why every nameserver isn't a resolver, and why your ISP or data center are often the ones who provide you with the resolver IP addresses they suggest that you use. 
+
+Recursive queries are a bit more taxing because they go all the way to the top in order to find the answer. 
+
+Root Nameservers
+
+To kick it off, it has to contact the root nameservers. These root nameservers effectively store the internet...as far as DNS is concerned at least. Without these, the internet would not be what it is today. The information we get here will allow us to get a little closer to the answer we're looking for by directing us to the TLD nameserver.
+
+TLD Nameservers
+
+Now we're getting the information we want. We've arrived at the .com TLD nameservers, which can look up the domain we're requesting, and direct us to the authoritative nameservers for that domain.
+
+Authoritative Nameservers
+
+The authoritative nameservers for a domain will be the official place to find the IP address we want to end up at. This IP address, in turn, leads us to our destination...
+
+Web Servers
+
+The web server is where we want to land. Here, the web site's content is stored and ready to serve out to our browser.
+
+
+
+    Root Nameservers:
+        Đây là những máy chủ DNS quan trọng nhất, nằm ở cấp độ cao nhất của hệ thống DNS.
+        Chúng lưu trữ thông tin về các Top-Level Domain (TLD) như .com, .org, .net, v.v.
+        Khi một client muốn truy vấn một tên miền, nó sẽ bắt đầu từ các root nameserver này.
+        Các root nameserver sẽ cung cấp thông tin về vị trí của máy chủ TLD nameserver tương ứng.
+
+    TLD Nameservers:
+        Là những máy chủ DNS chịu trách nhiệm về các Top-Level Domain (TLD) như .com, .org, .net, v.v.
+        Khi client nhận được thông tin từ root nameserver, nó sẽ liên hệ với TLD nameserver tương ứng.
+        TLD nameserver sẽ cung cấp thông tin về vị trí của máy chủ authoritative nameserver cho tên miền đang được truy vấn.
+
+    Authoritative Nameservers:
+        Là những máy chủ DNS được chủ sở hữu tên miền cấu hình và quản lý.
+        Chúng lưu trữ thông tin chính xác và mới nhất về tên miền.
+        Khi client liên hệ với TLD nameserver, nó sẽ được chuyển hướng đến authoritative nameserver để lấy thông tin cuối cùng.
+
+Sau khi đã truy vấn thành công các máy chủ DNS (root, TLD và authoritative) để xác định được địa chỉ IP của tên miền mong muốn, bước tiếp theo là liên hệ với web server đó để lấy nội dung trang web.
+
+Vai trò của web server trong quy trình này bao gồm:
+
+    Lưu trữ nội dung (mã HTML, tệp CSS, tập JavaScript, hình ảnh, v.v.) của trang web.
+
+    Lắng nghe và xử lý các yêu cầu HTTP/HTTPS từ trình duyệt của người dùng.
+
+    Lấy nội dung tương ứng với yêu cầu và gửi trả về trình duyệt.
+
+    Thực hiện các xử lý động (nếu có) như tạo nội dung động, tích hợp dữ liệu từ cơ sở dữ liệu, v.v.
+
+
+Summary
+
+The path to get from a domain to a web server is: Root Nameservers > TLD Nameservers > Authoritative Nameservers > Web Server.
+
+What is a TLD?
+TLD stands for top-level domain. That doesn't help much if you're not familiar with DNS, though, so I'll explain. To keep it simple - when you hear people talk about TLDs, they'e usually referring to the last part of a domain: .com, .net, .org, .gov, .ninja, .,tv, .anything; these are handled by TLD nameservers, with help from standards organizations to determine who gets to use which TLDs and where. So, if our domain ends in .com, the root nameserver will tell us where to find the TLD nameservers that handle all .com domains.
+
+And this is still just scratching the surface. However, it does give you a good picture of what's going on across the internet whenever a domain is used in any context (not just browsers). 
+
+Let's bring it back around now to something that you'll almost certainly deal with at some point, if you're handling domains on your cPanel account.
+
+What is a DNS Zone?
+
+ To throw another analogy at you, it's like getting someone's business card. With the card, you've got this one piece of paper that has their name, where they're located, and how to contact them.
+
+A zone represents, in a way, that domain's "business card", and it can contain these basics, but it can also contain any amount of additional domain information that the domain owner wants to include.
+
+The structure of these zones is important to understand, both in terms of reading them, changing them, or simply querying for them. Ultimately, the key component of a domain's zone file is its records.
+
+##
+DNS Records
+No, we don't mean music records...
+
+There are a variety of different records you can encounter in a domain's DNS zone, but there are a few that you'll find in just about every zone within a cPanel server:
+
+A , MX , NS , CNAME
+
+When written out in a DNS Zone, most records show up in the syntax as displayed below. 
+
+name IN RECORDTYPE destination
+
+The record type determines how the destination is defined, and in what situations it's used.
+
+An A record instructs the name to go to an IP Address. The intent is that, when you look for that particular name, you then know the correct IP address to find the content. This might be a full domain name, or it might be part of one. Let's look at an example:
+
+cpanel.com. IN A 123.15.12.6
+ftp         IN A 123.15.12.6
+
+Take a Second Look:
+Notice anything different about the names in these two records? That period at the end of cpanel.com is not a typo. It's performing literally the same role it does in a sentence's structure - it identifies the end of that name. So what happens to ftp then? Well, the zone says that ftp is not the end of that name, so the nameserver knows that it should then append the base domain of that zone, which is cpanel.com in this case. That means that, in this zone, this record entry: ftp IN A 208.74.123.58 ...would be the same as this record entry: ftp.cpanel.com. IN A 208.74.123.58
+
+Bạn hoàn toàn đúng. Để hiểu sâu hơn về những điểm khác biệt trong hai bản ghi này, hãy cùng tìm hiểu:
+
+1. cpanel.com. IN A 123.15.12.6
+- Tên miền ở đây là "cpanel.com." với dấu chấm "." ở cuối. Dấu chấm này được gọi là "dấu chấm rút gọn" (trailing dot) và có ý nghĩa như sau:
+- Nó chỉ ra rằng "cpanel.com" là tên miền đầy đủ, không cần thêm bất kỳ phần nào nữa.
+- Khi không có dấu chấm rút gọn, trình phân giải DNS sẽ tự động thêm tên miền cấp cao nhất (Top-Level Domain - TLD) vào tên miền.
+
+2. ftp IN A 123.15.12.6
+- Ở bản ghi thứ hai, không có dấu chấm rút gọn ở cuối tên "ftp".
+- Điều này có nghĩa là "ftp" không phải là tên miền đầy đủ, mà chỉ là một subdomain (tên miền con) của tên miền chính.
+- Khi không có dấu chấm rút gọn, trình phân giải DNS sẽ tự động thêm tên miền cấp cao nhất (cpanel.com) vào, trở thành "ftp.cpanel.com".
+
+Như vậy, sự khác biệt chính là việc sử dụng dấu chấm rút gọn để chỉ ra tên miền đầy đủ, hoặc không dùng dấu chấm để cho trình phân giải DNS biết đây chỉ là subdomain cần được thêm tên miền chính vào.
+
+
+A CNAME record on the other hand, is instructing a name to go to another name. If you've interacted with systems or applications that utilize "aliases", the premise is familiar (Whenever this name is asked for, do the same thing that this other name does").
+
+A common example is in the handling of the www portion of a domain. People look for domains in all kinds of different ways. Browsers nowadays know how to handle it regardless of how you type it, but at one point in time it was common to require the full www.domain.com in order to find certain websites. That's no longer the case, but that www is still important to include for compatibility.
+
+
+
+
