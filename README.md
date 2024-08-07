@@ -866,6 +866,391 @@ A CNAME record on the other hand, is instructing a name to go to another name. I
 
 A common example is in the handling of the www portion of a domain. People look for domains in all kinds of different ways. Browsers nowadays know how to handle it regardless of how you type it, but at one point in time it was common to require the full www.domain.com in order to find certain websites. That's no longer the case, but that www is still important to include for compatibility.
 
+Note:
+Technically, the www record could potentially still point to a different IP address than the base domain, leading you to a different server and/or website altogether. There's not a lot of this in common practice, but it's good to be aware of.
+
+Putting it all together, we can see that requests for www.cpanel.com should behave the same way that cpanel.com behaves, which is in turn defined by its own A record, pointing it to an IP Address.
+
+Nice, you made it!
+Ready to move on?
+
+Another notable record type you'll see is the MX record. The MX here stands for Mail Exchanger, and as you might expect, it relates to how email is handled for your domain.
+
+As much as online communication methods have been innovated and developed over the years, email remains an old standby that is still just as prevalent today as it may have been 10 or 15 years ago, which means that this record type still plays a very important role.
+
+Earlier, we discussed that DNS resolution occurs anytime a domain is used in any application; DNS is the only way to make a domain really mean something, after all. The same holds true for the domains you find within an email address.
+
+Take our customer service email address, for example: cs@cpanel.net.
+This address format exists so that anything after the &quot;@&quot; is expected to be a working domain name.
+
+This address format exists so that anything after the "@" is expected to be a working domain name.
+
+That domain needs to be resolved using DNS in order for it to actually get where it needs to go. Mail servers sending or receiving email will use that domain's MX record to determine where it should go, so that it can communicate with the correct mail server for that domain.
+
+This is because mail isn't always handled on the same server that handles other things for that domain, such as web content or databases. So rather than rely on one of the already existing records, we need a record specifically for mail.
+
+MX Record Process
+
+Let's go through the steps of checking for a mail exchanger.
+
+Send an Email
+
+So let's say you send an email to cs@cpanel.net from your personal Google Mail account.
+
+Google's Mail Servers
+  
+    cpanel.com. IN MX 0 mx1.cpanel.com.
+    mx1.cpanel.com. IN A 208.74.121.68
+
+The first thing Google's mail servers are going to do is resolve the MX record for the cpanel.net domain you emailed to. The answer looks like the above image.
+
+Receive the Mail
+
+    cpanel.com. IN MX 0 mx1.cpanel.com.
+    mx1.cpanel.com. IN A 208.74.121.68
+
+Summary
+
+MX Records are treated similarly to CNAME records in that they point to another domain to determine where it should end up. So, to get the real answer, it looks first at the MX record, then at the A record for the domain that the MX directed it to, which in this case is 208.74.121.68.
 
 
+Let's take another look at the MX record. Notice the 0 directly following the MX in the record? That is known as the priority of that particular Mx record. This means that you can indeed have more than one MX record for a single domain.
 
+The record with the lowest priority number is used first, followed by the next lowest and so on. This creates a system of DNS-based redundancy for mail servers, meaning that if the first mail server does not work, it will move on to the next, until it finds a functioning server.
+
+If, for some reason, a zone is missing an Mx record entirely, then the standard is to automatically use the A record for the base domain instead.
+
+
+    cpanel.com. IN MX 0 mx1.cpanel.com.
+    mx1.cpanel.com. IN A 208.74.121.68
+
+Last, but certainly not least, we have the NS Record. This very important record type can make or break your zone. 
+
+NS records play a pivotal, if simple role in a DNS zone. This is where we get to define what the internet should consider as the authoritative nameserver for this particular domain. General standards establish that two NS records are highly recommended for increased accessibility.
+
+QUERY: cpanel.com IN NS ? 
+ANSWER: 
+
+    cpanel.com. IN NS c.cpanel.net. 
+    cpanel.com. IN NS hg.cpanel.net. 
+    cpanel.com. IN NS mn.cpanel.net. 
+    c.cpanel.net. IN A 208.74.121.52 
+    hg.cpanel.net IN A 208.74.121.57 
+    mn.cpanel.net IN A 208.74.123.178 
+
+c.cpanel.net, hg.cpanel.net, and mn.cpanel.net are the three NS records returned. DNS will pick one at random to use for the authoritative answer for that domain. If that server fails, then it tries the next, and so on. Similar to the way that MX records are handled, though NS records do not have a priority number like the MX records do.
+
+We won't be able to look at every DNS record type that you can use in a zone, but if you are at all interested in managing your zones carefully and being a proactive domain administrator, then we highly recommend continuing the learning process within our official documentation, starting with the documentation on cPanel's Zone Editor interface.
+
+cPanel Zone Editor Interface(https://docs.cpanel.net/cpanel/domains/zone-editor/)
+
+DNS Functions Documentation(https://docs.cpanel.net/whm/dns-functions/)
+
+The World Wide Web
+
+In 1989, the World Wide Web was proposed. Less than 2 years later, the first servers were online. Now more than 30 years later, the web has grown to become the integral part of life in the developed world that we know it is today.
+
+Most of us hear World Wide Web, and probably think "internet". Really, though, the World Wide Web is simply one of the biggest parts of the internet. cPanel servers provide internet services, including a web server, but also including parts of the internet that are not part of the world wide web - like email, for instance.
+
+We'll be taking a look at this in a moment, and because cPanel servers run on the Linux Operating System, we'll need to learn a little bit about how it works, too. We'll also be discussing some very basic computer science concepts, like trust network. And of course, we'll cover the practical aspects, like adding domains to your cPanel account.
+
+Terms to Know
+
+
+Hierarchical
+    A system of things ranked in order from lesser to greater.
+
+Distributed
+    A distributed system is a model in which components located on networked computers communicate and coordinate their actions by passing messages.
+
+
+Domain Name
+    A domain name is an identification string that defines a realm of administrative autonomy, authority or control within the internet.
+
+Root / Root Nameserver
+    The start of the hierarchical system of domain names.
+
+
+Top Level Domain (TLD)
+    The first domain under the root domain.
+
+
+Parent Domain
+    A domain that is one higher in the domain name hierarchy than the referenced domain. Examples: ".com is the parent domain of example.com" and "example is the parent domain www.example.com"
+
+Sub-Domain
+    A "child" domain, or a domain that is one lower in the domain name hierarchy than the referenced domain. Example: "www is a subdomain of example.com"
+
+
+Fully Qualified Domain Name (FQDN)
+    A domain name with a full path to the root servers. Example: www.example.com.
+
+Phân cấp
+Một hệ thống các thứ được xếp hạng theo thứ tự từ thấp đến cao.
+
+Phân tán
+Một hệ thống phân tán là một mô hình trong đó các thành phần nằm trên các máy tính được kết nối mạng giao tiếp và phối hợp các hành động của chúng bằng cách truyền tin nhắn.
+
+Tên miền
+Một tên miền là một chuỗi nhận dạng xác định phạm vi tự chủ, thẩm quyền hoặc kiểm soát hành chính trong internet.
+
+Root / Root Nameserver
+Sự khởi đầu của hệ thống phân cấp tên miền.
+
+Tên miền cấp cao nhất (TLD)
+Tên miền đầu tiên dưới tên miền gốc.
+
+Tên miền cha
+Một tên miền cao hơn một trong hệ thống phân cấp tên miền so với tên miền được tham chiếu. Ví dụ: ".com là tên miền cha của example.com" và "example là tên miền cha www.example.com"
+
+Tên miền con
+Một tên miền "con" hoặc một tên miền thấp hơn một trong hệ thống phân cấp tên miền so với tên miền được tham chiếu. Ví dụ: "www là tên miền phụ của example.com"
+
+Tên miền đủ điều kiện (FQDN)
+Một tên miền có đường dẫn đầy đủ đến máy chủ gốc. Ví dụ: www.example.com.
+
+
+Registrars
+
+In order to "own" or use a domain in any recognized way, you have to buy it from a company that has the authority of a registrar, effectively registering your intent to use that domain.
+
+Để "sở hữu" hoặc sử dụng một tên miền theo bất kỳ cách nào được công nhận, bạn phải mua nó từ một công ty có thẩm quyền của một cơ quan đăng ký tên miền, về cơ bản là đăng ký ý định sử dụng tên miền đó của bạn.
+
+So why do we have to buy domain names from companies, instead of just claiming them for ourselves?
+
+Back in the earlier days of the internet, before domains were being grabbed up by the thousands, before Google, and before even the idea of the World Wide Web existed, you could just ask for a domain name, and you'd get it for free. 
+
+So who did you ask? The National Science Foundation, believe it or not.
+
+The National Science Foundation (NSF) is an independent federal agency created by Congress in 1950 "to promote the progress of science; to advance the national health, prosperity, and welfare; to secure the national defense..." NSF is vital because we support basic research and people to create knowledge that transforms the future.
+
+As you can guess, this job became quite a bit larger in scope as the internet grew, and the NSF gave out authority to other companies to handle this task instead. And that's, in so many words, how registrars came to be.
+
+The internet is huge. You can resolve any domain to any IP Address (on your own computer), but if you want everyone else on the internet to know where that domain should go, you've got to rely on a more centralized resource. Registering your domain is what you do to accomplish that.
+
+Some top-level domains (or TLDs) only have one registrar, while others (like .com) have hundreds to choose between. Ultimately, it is up to you to decide which registrar you want to use, although some registrars do offer more advanced features (like DNSSEC) than others.
+
+
+Hierarchical & Distributed
+
+The domains that make up the world wide web are composed of a hierarchical set of values and distributed across a centralized system. These values can be broken apart to explain a bit more about the system as it exists today.
+
+Let's look at cPanel's domain:
+
+cpanel.net
+
+We get used to seeing .com, .net, .org, or .anything in internet domains, but they play a major role in tracking down the server that hosts the domain. This is the Top-Level Domain.
+
+The Top-Level Domain, or TLD, serves as the starting point for DNS queries seeking a particular domain (take a look at our DNS Fundamentals course if you want to dig in a bit deeper). Just taking into account the name "top-level" already tells you that there is a hierarchy in place. The next level is the second-level domain name, which in this case is cpanel.
+
+Still, though, this is not what we would consider a fully-qualified domain. A domain being fully-qualified, or a FQDN, is another way of saying, "this domain is specific enough that we can be sure of its destination," and typically necessitates additional domain levels.
+
+For example:
+
+Let's say that we have a server that we call "host". Using the cpanel.net domain, the FQDN host name for this server would be...
+
+host.cpanel.net
+
+There might be servers called "host" all over the internet, but there's only one that exists at host.cpanel.net.
+
+Protocols
+
+A protocol is a system of rules that allow two or more entities of a communications system to transmit information via any kind of variation of a physical quantity. The protocol defines the rules, syntax, semantics and synchronization of communication and possible error recovery methods. In other words, this is what defines when, where, and how systems talk to each other.
+
+Internet Protocol
+
+Internet Protocol (IP) is the protocol that contains the instructions a computer needs to find another computer on the network and send it a message. An IP Address is a number assigned to a computer so that other computers can find it.
+
+IP addresses come in two types: IPv4 and IPv6. The important thing to know is that IPv6 is still in the process of being adopted, and while it has a whole lot more addresses than IPv4 does, not everyone is using them yet.
+
+Every cPanel server will have at least one IPv4 address. But how do we make sure that no two servers have the same address (especially since one server can have multiple addresses)?
+
+Well, the addresses are kept track of by the IANA; the Internet Assigned Numbers Authority. IANA does many things, and one of those things is to assign groups of IP addresses to organizations.
+
+****
+HTTP
+
+HTTP stands for HyperText Transfer Protocol. HyperText was a term coined in 1965 by Ted Nelson and refers to any text that links to other text. HTTP is the language that web-servers and web-browsers use to speak to each other.
+stock-image.jpg
+
+Their conversations are human readable, and are transmitted in without any type of encryption or obfuscation. This is called clear text.
+
+HTTPS
+
+![](https://exams.cpanel.net/getfile/TK_N8DWwCJzijd4uIyRUOM-Dg.bXdHVXlsRkhJaW1yRmp6VzdubHZrYUhnTjlaUkwvVllrMVlOS0JQRFlkYk1laHUzNEVJYkpoN3poQmFya0dsTQ/cpanel/1609256464_c-panel-fundamentals-web-scorm12-M6HZ5UZD/scormcontent/assets/zI7myb9uAkgRze-R_vXbRgwQX0uCnfXwc.jpg)
+
+HTTPS is the secure version of HTTP. It has two uses: it ensures that you are really talking to the server you think you're connected to and that no one can listen in on the conversation.
+
+When you use HTTPS, your computer does some complicated math to ensure that no one can eavesdrop on the conversation it is having with the web-server. This is important if you want to transmit sensitive data, like credit card numbers or prom photos.
+
+Arguably more important that this, encryption is the feature that allows the server to prove who it is. It doesn't do any good to prevent eavesdropping if you're talking to the attacker!
+
+So how does this encryption stuff work?
+
+So how does this encryption stuff work? Don't worry, we won't be delving into the complicated math part - we're just going to look at the big picture (Pete would approve).
+
+Encyption with secrets
+
+Encryption works by applying a complicated math formula to information (data) in order to obfuscate it. There are two parts to this formula - an equation and secret. So encryption is all about secrets.
+
+
+The secrets used to encrypt data are called "keys". There are two basic kinds of keys - shared secrets and key pairs.
+
+
+Shared secrets require both sides to have the secret before the encryption can start. Key pairs are neat - you let one half of the pair be public for anyone, and the other half of the pair is private.
+
+
+This works because if you encrypt something with the public key, only the private key can decrypt it and vice versa.
+
+Encryption with certifications
+
+Certificates use public key pairs in order to setup encryption. But more importantly, certificates allow you to trust that you're connected to the right server.
+
+
+How does this work? Well, before a certificate can be issued, the company issuing the certificate runs some checks to ensure that the party requesting the certificate controls the site. This is usually done one of two ways.
+
+
+The first way is to place a file on the domain somewhere. This is what AutoSSL and the cPanel certificate store use. The other way is to require a DNS TXT record be added, proving that you own the DNS zone for that domain.
+
+Mã hóa bằng chứng chỉ và mã hóa bằng bí mật là hai khái niệm liên quan nhưng khác biệt trong mật mã học.
+
+Mã hóa bằng bí mật (Mã hóa khóa đối xứng):
+Thuật ngữ này đề cập đến việc sử dụng khóa bí mật chung giữa hai bên để mã hóa và giải mã dữ liệu.
+Khóa bí mật giống nhau được sử dụng cho cả mã hóa và giải mã.
+Ví dụ bao gồm AES (Tiêu chuẩn mã hóa nâng cao), DES (Tiêu chuẩn mã hóa dữ liệu) và Blowfish.
+Thách thức là trao đổi khóa bí mật chung một cách an toàn giữa hai bên trước khi họ có thể giao tiếp an toàn.
+
+Mã hóa bằng chứng chỉ (Mã hóa khóa công khai):
+Thuật ngữ này sử dụng một cặp khóa có liên quan về mặt toán học - khóa công khai và khóa riêng.
+Khóa công khai được sử dụng để mã hóa, trong khi khóa riêng được sử dụng để giải mã.
+Khóa công khai có thể được phân phối rộng rãi, trong khi khóa riêng được chủ sở hữu giữ bí mật.
+Chứng chỉ được sử dụng để liên kết khóa công khai với danh tính của chủ sở hữu (cá nhân hoặc tổ chức).
+Ví dụ bao gồm RSA và ECC (Mã hóa đường cong Elliptic).
+Chứng chỉ được cấp bởi các Cơ quan cấp chứng chỉ (CA) đáng tin cậy và giúp thiết lập độ tin cậy vào khóa công khai.
+
+A little more about how SSL's work...
+
+Ok, so the SSL company has proven that you own the domain and will certify you...but how do other people know to trust the SSL company? After all, there are so many of them that your browser can't just have a list of all the real ones. But it can have a list of some of them - the root certificate authorities. We can use the Chain of Trust to do this.
+
+The Chain of Trust is an ordered list of certificates, containing an end-user subscriber certificate and intermediate certificates, that enable the receiver to verify that the sender and all intermediate certificates are trustworthy.
+
+Chứng chỉ SSL: Công ty SSL đã chứng minh rằng bạn sở hữu tên miền và cấp chứng chỉ SSL cho bạn.
+
+Vấn đề tin cậy: Tuy nhiên, làm thế nào để những người khác biết rằng họ có thể tin tưởng vào công ty SSL này? Có rất nhiều công ty SSL khác nhau, không phải tất cả đều đáng tin cậy.
+
+Chain of Trust: Để giải quyết vấn đề này, các trình duyệt web sử dụng một "chuỗi tin cậy" (Chain of Trust). Đây là một danh sách các chứng chỉ SSL được xếp theo thứ tự, từ chứng chỉ của người dùng cuối cùng đến các chứng chỉ trung gian.
+    
+Xác minh độ tin cậy: Khi một người nhận được chứng chỉ SSL, họ có thể xem xét chuỗi tin cậy này để xác minh rằng tất cả các chứng chỉ trong chuỗi, bao gồm cả chứng chỉ của công ty SSL, đều đáng tin cậy.
+
+Đây là cách mà các trình duyệt web và hệ thống khác có thể xác định độ tin cậy của các chứng chỉ SSL, mà không cần phải có một danh sách hoàn chỉnh của tất cả các công ty SSL đáng tin cậy. Chuỗi tin cậy cung cấp một cách tiếp cận phân cấp và có thể mở rộng để xây dựng và duy trì sự tin tưởng trong hệ thống chứng chỉ SSL.
+
+Chain of Trust là danh sách các chứng chỉ được sắp xếp theo thứ tự, bao gồm chứng chỉ người đăng ký cuối và các chứng chỉ trung gian, cho phép người nhận xác minh rằng người gửi và tất cả các chứng chỉ trung gian đều đáng tin cậy.
+
+
+The most important thing that this chain of trust verifies is the identity of the server that you're connecting to. You can set up encryption without a chain of trust, but you can't be sure who you're trading secrets to without it.
+Điều quan trọng nhất mà chuỗi tin cậy này xác minh là danh tính của máy chủ mà bạn đang kết nối. Bạn có thể thiết lập mã hóa mà không cần chuỗi tin cậy, nhưng bạn không thể chắc chắn mình đang trao đổi bí mật với ai nếu không có nó.
+
+cPanel Fundamentals: File System
+
+Permissions
+
+One of the first and most important things to understand about files in a Linux-based environment is the way that access to those files (or those directories) are handled. This is know as file permissions.
+
+Linux file permissions are primarily split up into sources and types of access.
+
+Sources include:
+
+- Owner (u) - "Owner" permissions ONLY affect the user that owns this file or this directory
+  
+- Group (g) -  "Group" permissions ONLY affect the group that is assigned to this file or this directory
+
+- All Users (a) - "All Users" permissions affect EVERYONE ELSE. Due to its scope, this permission, in particular, can be the source of significant security risk.
+
+Types Include:
+
+- Read (r) - Read permissions allow a user to look at a file
+
+- Write (w) - Write permissions allow a user to change a file or directory, or create a new file in a directory
+
+- Execute ( x)  - Execute permissions allow a user to...well, execute a file. Usually in the case of scripts and applications. Be aware that this type also includes the ability for a user to read contents of a directory.
+
+There are a few ways that you might see these permissions reported in the interface (or in a command line, for that matter). One way is to have these permissions represented numerically, using binary representations of the corresponding "rwx" string.
+
+To get the numerical value to assign permissions, you'd add up the total of the permission types given to each of the three groups, individually.
+
+For example: if the owner group had read and write permissions, but NOT execute, its number would be 6.
+
+From the perspective of a cPanel account user, you won't be able to alter the user or group ownership on a file or directory, but you SHOULD be aware that they exist. As always, contact the server admin or host of your server if you need changes outside of this scope.
+
+The file system
+
+Another aspect you'll need to be familiar with is the idea of the file system. Anyone who has used a computer has an idea of what this means, but it's important to understand this in the context of a web server.
+
+If you have one website with a particular hosting company, it's likely that you are sharing a server with other customers of that hosting company, unless you've specifically purchased a dedicated server plan of some kind.
+
+This being the case, all accounts are stored in the server underneath an account name folder within the /home folder. This means that when you look at your files, you're just seeing what exists in YOUR home folder.
+
+Một khía cạnh khác mà bạn cần phải quen thuộc là ý tưởng về hệ thống tệp. Bất kỳ ai đã sử dụng máy tính đều có ý tưởng về ý nghĩa của điều này, nhưng điều quan trọng là phải hiểu điều này trong bối cảnh của máy chủ web.
+
+Nếu bạn có một trang web với một công ty lưu trữ cụ thể, thì có khả năng là bạn đang chia sẻ máy chủ với những khách hàng khác của công ty lưu trữ đó, trừ khi bạn đã mua một gói máy chủ chuyên dụng nào đó.
+
+Trong trường hợp này, tất cả các tài khoản đều được lưu trữ trong máy chủ bên dưới thư mục tên tài khoản trong thư mục /home. Điều này có nghĩa là khi bạn xem các tệp của mình, bạn chỉ thấy những gì tồn tại trong thư mục home CỦA BẠN.
+
+Wrapping Up
+
+Yep, that's it! As far as the cPanel interface goes, you're prepared to start diving deeper into the components available to you. We'll be taking a closer look at these components in the units that follow. For now, though, we've at least laid out the ground work for handling your files effectively.
+
+What is email anyway?
+
+The ability to transmit information electronically is one of the staples of computing as we know it today. Email, appearing it its initial form over 50 years ago, is one of the earliest ways that this manifested in a ubiquitous way that made sense in a technical and non-technical way alike, because it worked like regular mail. 
+
+Most everyone has an idea of what email is. What may not be fully understood, however, is what an email is to a server.
+
+Email has been around for decades in essentially the same form, but its reliability as a digital means of communication has maintained it as a continued standard of online interaction.
+
+Whether for business or personal use, email is an important factor for creating an online presence of any kind. Next, we'll look at how this communication works.
+
+How Does Email Travel?
+
+
+Not all email follows this exact path, of course. Sometimes it's intercepted by a filter on the server, and sometimes it's delayed because of activity occurring on either the sending or receiving server. Sometimes the client application itself can cause problems, or refuse a message for one reason or another. 
+
+All in all, though, the exchange of mail between servers is a very rudimentary process. It is for this reason that the exchange of secure data over email is generally advised against, as it is often sent as simple, plain text, which can easily be intercepted. 
+
+There are methods of securing and encrypting email data, but the safest approach is to exchange the information via another, more secure medium.
+
+Spoofing
+
+One of the important things that users need to be aware of is the nature of an email's send identification. When you look at an email in your client, you're actually not seeing the whole email - just the sender, recipient(s), the subject and the email body. There's quite a bit of additional data that is sent along with every email, primarily contained in something called the header.
+
+Some of this header information, however, can be manually re-written so that the message appears to have originated from somewhere other than its actual source. This is a common practice in spam and phishing attempts. For the curious, we have a handy quick-reference blog article on catching phishing attacks entitled [How to Spot a Phishing Email](https://blog.cpanel.com/how-to-spot-a-phishing-email/).
+
+Email, in its raw form, is just formatted text.
+
+If you wanted to, you could open up an application called telnet, connect to your mail server, and send an email entirely through a series of commands. Because the actual sender can simply state another sender's email address within this text and still successfully send the email, the ability to spoof exists. There are a number of measures to prevent this, however. We also have an article on [How to Prevent Email Abuse](https://docs.cpanel.net/knowledge-base/email/how-to-prevent-email-abuse/) in our KnowledgeBase that is highly recommended.
+
+Encryption
+
+So we've gone over some of the security pitfalls of traditional email. One major component to preventing these risks, and ensuring the legitimacy of an email, is through the use of encryption. 
+
+Encryption takes your email text (and/or authentication info) and, to put it simply, jumbles it up so that only the right person or persons can make sense of it.
+
+Even if an email is encrypted, the header remains un-encrypted. An un-encrypted header allows the mail server to determine the message's destination address(es) to reach the correct recipient(s).
+
+Vì vậy, chúng tôi đã xem xét một số cạm bẫy bảo mật của email truyền thống. Một thành phần chính để ngăn ngừa những rủi ro này và đảm bảo tính hợp pháp của email là thông qua việc sử dụng mã hóa.
+
+Mã hóa lấy văn bản email của bạn (và/hoặc thông tin xác thực) và, nói một cách đơn giản, làm xáo trộn chúng để chỉ có đúng người hoặc những người phù hợp mới có thể hiểu được.
+
+Ngay cả khi email được mã hóa, tiêu đề vẫn không được mã hóa. Tiêu đề không được mã hóa cho phép máy chủ thư xác định địa chỉ đích của thư để đến đúng người nhận.
+
+Where can I find out more?
+
+Despite its age, email is still a de facto standard of digital communication and shows no signs of slowing down. The more you understand about it, the better equipped you'll be to secure yourself and take advantage of the advanced features available to you.
+
+Look over the Tier 1 cPanel Professional certification coursework for a full range of coverage on this topic. There are also resources available below.
+
+https://www.youtube.com/playlist?list=PLZk46idJS6s54hAX8K79_AY8brgBwPtHd
+
+https://docs.cpanel.net/
+
+https://docs.cpanel.net/cpanel/the-cpanel-interface/the-cpanel-interface/
