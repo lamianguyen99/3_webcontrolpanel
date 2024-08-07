@@ -1254,3 +1254,24 @@ https://www.youtube.com/playlist?list=PLZk46idJS6s54hAX8K79_AY8brgBwPtHd
 https://docs.cpanel.net/
 
 https://docs.cpanel.net/cpanel/the-cpanel-interface/the-cpanel-interface/
+
+
+cPanel Fundamentals: Databases
+
+Databases
+
+A database is simply a structured set of data. The structure can be anything, but the most common form of a database is a relational database. A relational database is a database that consists of tables with each row in the table containing a unique key. 
+
+Note:
+Relational databases can use values from one table to correspond with values in another table.
+
+But what's a table?
+
+Tables
+
+No, we don't mean a table to sit and have dinner at. The table is the core structure of a relational database. 
+
+Tables are composed of fields (columns) and entries (rows). Each table should represent a type of object (for example, a table for pets). Each field should represent a trait or descriptor of the object represented by the table (for example, the pets table might have fields for animal type and neutered state). Each entry represents one instance of the object (for example, each entry is one pet).
+
+In this example, each column header represents a field (e.g., "petname", "type", etc), and the subsequent rows represent entries into each of those fields.
+
